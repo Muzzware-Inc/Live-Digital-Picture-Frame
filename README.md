@@ -7,16 +7,16 @@ cost** Raspberry Pi Media Panel--a nice looking screen that could stand in the l
 
 ## Our success criteria would include:smiley::
 
--Low cost: a full blown computing device and screen for under $100:sneezing_face:
+-**Low cost**: a full blown computing device and screen for under $100:sneezing_face:
 
--Attractive: meaning it should be aesthetically acceptable for the living room:smirk:
+-**Attractive**: meaning it should be aesthetically acceptable for the living room:smirk:
 
--Light: no more than a few pounds:massage_man:
+-**Light**: no more than a few pounds:massage_man:
 
--Thin: no more than an inch thick, including frame:iphone:
+-**Thin**: no more than an inch thick, including frame:iphone:
 
--Quick: can be built in a few hours or less:thinking:
+-**Quick**: can be built in a few hours or less:thinking:
 
--Simple: requiring mainly assembly,versus construction or manufacturing:pushpin:
+-**Simple**: requiring mainly assembly,versus construction or manufacturing:pushpin:
 
-This project was inspired by https://instructables.com
+_This project was inspired by_: https://instructables.com

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<!-- saved from url=(0042)http://razzpisampler.oreilly.com/ch07.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>razzpisampler</title>
+    <link rel="stylesheet" type="text/css" href="./razzpisampler_files/atlas_assets.css">
+    <link rel="stylesheet" type="text/css" href="./razzpisampler_files/html.css">
+<script async="" src="./razzpisampler_files/analytics.js"></script><script type="text/javascript" async="" src="./razzpisampler_files/analytics.min.js"></script><script src="./razzpisampler_files/analytics(1).js" type="text/javascript"> </script>
+    <link rel="stylesheet" type="text/css" href="./razzpisampler_files/syntax.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-39014713-3', 'oreilly.com');
+  ga('send', 'pageview');
+</script>
+  </head>
+  <body data-type="book" data-feedly-mini="yes" data-gr-c-s-loaded="true">
+  
+  <a href="https://github.com/oreilly-media-content/razzpisampler/issues"><img style="z-index: 999999999; position: absolute; top: 0; right: 0; border: 0;" src="./razzpisampler_files/discuss_right_gray_6d6d6d.png" alt="Discuss on GitHub"></a>
+
+  <div class="navbar">
+    <div class="container">
+      <a class="brand" href="http://oreilly.com/" target="_blank"><span class="logo logo-white"></span></a>
+      <a class="title" href="http://razzpisampler.oreilly.com/index.html"><span class="logo logo-white-titleonly"></span></a>
+      <ul class="nav pull-right">
+        <li><a href="http://razzpisampler.oreilly.com/ch06.html">Previous</a></li>
+        <li><a href="http://razzpisampler.oreilly.com/ch08.html">Next</a></li>
+      </ul>
+    </div>
+  </div>
+
+<div class="container" id="main">
+<div class="row">
+<div class="span8">
+
+  <section data-type="chapter" id="SEC11.1" data-pdf-bookmark="Chapter 7. Connecting a Push Switch">
+<h1>Connecting a Push Switch</h1>
+
+<iframe width="560" height="315" src="./razzpisampler_files/3TDJ4FmtGgk.html" frameborder="0" allowfullscreen="allowfullscreen"> </iframe>
+
+<section data-type="sect1" id="_problem_173">
+<h2>Problem</h2>
+
+<p>You want to connect a switch to your Raspberry Pi so that when you press it, some Python code is run.</p>
+</section>
+
+<section data-type="sect1" id="_solution_173">
+<h2>Solution</h2>
+
+<p>Connect a switch to a GPIO pin and use the RPi.GPIO library in your Python program to detect the button press.</p>
+
+<p>To make this recipe, you will need:</p>
+
+<ul>
+	<li>
+	<p>Breadboard and jumper wires (see <a href="http://shop.oreilly.com/product/0636920029595.do">“Prototyping Equipment”</a>)</p>
+	</li>
+	<li>
+	<p>Tactile push switch (see <a href="http://shop.oreilly.com/product/0636920029595.do">“Miscellaneous”</a>)</p>
+	</li>
+</ul>
+
+<p>shows how to connect a tactile push switch, using a breadboard and jumper wires.</p>
+
+<figure float="none" id="FIG11.1a">
+<figcaption><span class="label">Figure 7-1. </span>Connecting a push switch to a Raspberry Pi</figcaption>
+<img src="./razzpisampler_files/rpck_1101.png"></figure>
+
+<p>Open an editor (nano or IDLE) and paste in the following code. As with all the program examples in this book, you can also download the program from the Code section of the <a href="http://www.raspberrypicookbook.com/"><em>Raspberry Pi Cookbook</em> website</a>, where it is called <em>switch.py</em>.</p>
+
+<p>This example code displays a message when the button is pressed:</p>
+
+<pre data-code-language="python" data-type="programlisting"><code class="kn">import</code> <code class="nn">RPi.GPIO</code> <code class="kn">as</code> <code class="nn">GPIO</code>
+<code class="kn">import</code> <code class="nn">time</code>
+
+<code class="n">GPIO</code><code class="o">.</code><code class="n">setmode</code><code class="p">(</code><code class="n">GPIO</code><code class="o">.</code><code class="n">BCM</code><code class="p">)</code>
+
+<code class="n">GPIO</code><code class="o">.</code><code class="n">setup</code><code class="p">(</code><code class="mi">18</code><code class="p">,</code> <code class="n">GPIO</code><code class="o">.</code><code class="n">IN</code><code class="p">,</code> <code class="n">pull_up_down</code><code class="o">=</code><code class="n">GPIO</code><code class="o">.</code><code class="n">PUD_UP</code><code class="p">)</code>
+
+<code class="k">while</code> <code class="bp">True</code><code class="p">:</code>
+    <code class="n">input_state</code> <code class="o">=</code> <code class="n">GPIO</code><code class="o">.</code><code class="n">input</code><code class="p">(</code><code class="mi">18</code><code class="p">)</code>
+    <code class="k">if</code> <code class="n">input_state</code> <code class="o">==</code> <code class="bp">False</code><code class="p">:</code>
+        <code class="k">print</code><code class="p">(</code><code class="s">'Button Pressed'</code><code class="p">)</code>
+        <code class="n">time</code><code class="o">.</code><code class="n">sleep</code><code class="p">(</code><code class="mf">0.2</code><code class="p">)</code></pre>
+
+<p>You will need to run the program as superuser:</p>
+
+<pre data-type="programlisting">pi@raspberrypi ~ $ sudo python switch.py
+Button Pressed
+Button Pressed
+Button Pressed
+Button Pressed</pre>
+</section>
+
+<section data-type="sect1" id="_discussion_171">
+<h2>Discussion</h2>
+
+<p>You will notice that the switch is wired so that when it is pressed, it will connect pin 18 configured as an input to GND. The input pin is normally pulled up to 3.3V by the optional argument <code>pull_up_down=GPIO.PUD_UP</code> in <code>GPIO.setup</code>. This means that when you read the input value using <code>GPIO.input</code>, <code>False</code> will be returned if the button is pressed. This is a little counterintuitive.</p>
+
+<p>Each GPIO pin has software configurable pull-up and pull-down resistors. When using a GPIO pin as an input, you can configure these resistors so that one or either or neither of the resistors is enabled, using the optional <code>pull_up_down</code> parameter to <code>GPIO.setup</code>. If this parameter is omitted, then neither resistor will be enabled. This leaves the input <em>floating</em>, which means that its value cannot be relied upon and it will drift between high and low depending on what it picks up in the way of electrical noise.</p>
+
+<p>If it is set to <code>GPIO.PUD_UP</code>, the pull-up resistor is enabled; if it is set to <code>GPIO.PUD_DOWN</code>, the pull-down resistor is enabled.</p>
+
+<p>You might expect the push switch to have just two connections, which are either open or closed. While some of these tactile push switches do have just two connections, most have four. shows how these connections are arranged.</p>
+
+<figure float="none" id="FIG11.1b">
+<figcaption><span class="label">Figure 7-2. </span>A tactile push switch</figcaption>
+<img src="./razzpisampler_files/rpck_1102.png"></figure>
+
+<p>Actually, there are only really two electrical connections, because inside the switch package pins B and C are connected together, as are A and D.</p>
+</section>
+
+<section data-type="sect1" id="_see_also_173">
+<h2>See Also</h2>
+
+<p>For more information on using a breadboard and jumper wires with the Raspberry Pi, see <a href="http://shop.oreilly.com/product/0636920029595.do">“Using a Breadboard with Jumper Leads”</a>.</p>
+
+<p>To use a switch to trigger an interrupt, see <a href="http://shop.oreilly.com/product/0636920029595.do">“Programming with Interrupts”</a>.</p>
+
+<p>To debounce a switch, see <a href="http://shop.oreilly.com/product/0636920029595.do">“Debouncing a Button Press”</a>.</p>
+
+<p>To use external pull-up or pull-down resistors, see <a href="http://shop.oreilly.com/product/0636920029595.do">“Using an External Pull-up Resistor”</a>.</p>
+</section>
+</section>
+
+  <div class="navigation">
+      <ul>
+        <li class="prev"><a href="http://razzpisampler.oreilly.com/ch06.html">Previous</a></li>
+        <li class="next"><a href="http://razzpisampler.oreilly.com/ch08.html">Next</a></li>
+      </ul>
+  </div>
+
+</div>
+
+<div class="span3 offset1">
+<h2>Sampler Contents:</h2>
+<nav data-type="toc" id="idp2040384"><ol><li data-type="chapter"><a href="http://razzpisampler.oreilly.com/ch01.html#SEC4.8">Raspberry Pi Radio Transmitter</a><ol>
+
+
+
+<li data-type="sect1"><a href="http://razzpisampler.oreilly.com/ch01.html#_problem_73">Problem</a></li><li data-type="sect1"><a href="http://razzpisampler.oreilly.com/ch01.html#_solution_73">Solution</a></li><li data-type="sect1"><a href="http://razzpisampler.oreilly.com/ch01.html#_discussion_72">Discussion</a></li><li data-type="sect1"><a href="http://razzpisampler.oreilly.com/ch01.html#_see_also_73">See Also</a></li></ol></li><li data-type="chapter"><a href="http://razzpisampler.oreilly.com/ch02.html#SEC6.1">Finding Your Way Around the GPIO Connector</a><ol>
+
+
+
+<li data-type="sect1"><a href="http://razzpisampler.oreilly.com/ch02.html#_problem_131">Problem</a></li><li data-type="sect1"><a href="http://razzpisampler.oreilly.com/ch02.html#_solution_131">Solution</a></li><li data-type="sect1"><a href="http://razzpisampler.oreilly.com/ch02.html#_discussion_130">Discussion</a></li><li data-type="sect1"><a href="http://razzpisampler.oreilly.com/ch02.html#_see_also_131">See Also</a></li></ol></li><li data-type="chapter"><a href="http://razzpisampler.oreilly.com/ch03.html#SEC7.1">Connecting an LED</a><ol>
+
+
+
+<li data-type="sect1"><a href="http://razzpisampler.oreilly.com/ch03.html#_problem_152">Problem</a></li><li data-type="sect1"><a href="http://razzpisampler.oreilly.com/ch03.html#_solution_152">Solution</a></li><li data-type="sect1"><a href="http://razzpisampler.oreilly.com/ch03.html#_discussion_151">Discussion</a></li><li data-type="sect1"><a href="http://razzpisampler.oreilly.com/ch03.html#_see_also_152">See Also</a></li></ol></li><li data-type="chapter"><a href="http://razzpisampler.oreilly.com/ch04.html#SEC7.8">Using Lots of LEDs (Charlieplexing)</a><ol>
+
+
+
+<li data-type="sect1"><a href="http://razzpisampler.oreilly.com/ch04.html#_problem_161">Problem</a></li><li data-type="sect1"><a href="http://razzpisampler.oreilly.com/ch04.html#_solution_161">Solution</a></li><li data-type="sect1"><a href="http://razzpisampler.oreilly.com/ch04.html#_discussion_160">Discussion</a></li><li data-type="sect1"><a href="http://razzpisampler.oreilly.com/ch04.html#_see_also_161">See Also</a></li></ol></li><li data-type="chapter"><a href="http://razzpisampler.oreilly.com/ch05.html#SEC7.12">Controlling Servo Motors</a><ol>
+
+
+
+<li data-type="sect1"><a href="http://razzpisampler.oreilly.com/ch05.html#_problem_165">Problem</a></li><li data-type="sect1"><a href="http://razzpisampler.oreilly.com/ch05.html#_solution_165">Solution</a></li><li data-type="sect1"><a href="http://razzpisampler.oreilly.com/ch05.html#_discussion_164">Discussion</a></li><li data-type="sect1"><a href="http://razzpisampler.oreilly.com/ch05.html#_see_also_165">See Also</a></li></ol></li><li data-type="chapter"><a href="http://razzpisampler.oreilly.com/ch06.html#SEC7.100">Using a RaspiRobot Board to Drive a Bipolar Stepper Motor</a><ol>
+
+
+
+<li data-type="sect1"><a href="http://razzpisampler.oreilly.com/ch06.html#_problem_171">Problem</a></li><li data-type="sect1"><a href="http://razzpisampler.oreilly.com/ch06.html#_solution_171">Solution</a></li><li data-type="sect1"><a href="http://razzpisampler.oreilly.com/ch06.html#_discussion_169">Discussion</a></li><li data-type="sect1"><a href="http://razzpisampler.oreilly.com/ch06.html#_see_also_171">See Also</a></li></ol></li><li data-type="chapter"><a href="http://razzpisampler.oreilly.com/ch07.html#SEC11.1">Connecting a Push Switch</a><ol>
+
+
+
+
+<li data-type="sect1"><a href="http://razzpisampler.oreilly.com/ch07.html#_problem_173">Problem</a></li>
+
+<li data-type="sect1"><a href="http://razzpisampler.oreilly.com/ch07.html#_solution_173">Solution</a></li>
+
+<li data-type="sect1"><a href="http://razzpisampler.oreilly.com/ch07.html#_discussion_171">Discussion</a></li>
+
+<li data-type="sect1"><a href="http://razzpisampler.oreilly.com/ch07.html#_see_also_173">See Also</a></li>
+</ol></li><li data-type="chapter"><a href="http://razzpisampler.oreilly.com/ch08.html#SEC12.12">Using Resistive Sensors</a><ol>
+
+
+
+<li data-type="sect1"><a href="http://razzpisampler.oreilly.com/ch08.html#_problem_186">Problem</a></li><li data-type="sect1"><a href="http://razzpisampler.oreilly.com/ch08.html#_solution_186">Solution</a></li><li data-type="sect1"><a href="http://razzpisampler.oreilly.com/ch08.html#_discussion_184">Discussion</a></li><li data-type="sect1"><a href="http://razzpisampler.oreilly.com/ch08.html#_see_also_186">See Also</a></li></ol></li><li data-type="chapter"><a href="http://razzpisampler.oreilly.com/ch09.html#SEC13.1">Using a Four-Digit LED Display</a><ol>
+
+
+
+<li data-type="sect1"><a href="http://razzpisampler.oreilly.com/ch09.html#_problem_198">Problem</a></li><li data-type="sect1"><a href="http://razzpisampler.oreilly.com/ch09.html#_solution_198">Solution</a></li><li data-type="sect1"><a href="http://razzpisampler.oreilly.com/ch09.html#_discussion_195">Discussion</a></li><li data-type="sect1"><a href="http://razzpisampler.oreilly.com/ch09.html#_see_also_198">See Also</a></li></ol></li><li data-type="chapter"><a href="http://razzpisampler.oreilly.com/ch10.html#SEC14.1">Programming an Arduino from Raspberry Pi</a><ol>
+
+
+
+<li data-type="sect1"><a href="http://razzpisampler.oreilly.com/ch10.html#_problem_202">Problem</a></li><li data-type="sect1"><a href="http://razzpisampler.oreilly.com/ch10.html#_solution_202">Solution</a></li><li data-type="sect1"><a href="http://razzpisampler.oreilly.com/ch10.html#_discussion_199">Discussion</a></li><li data-type="sect1"><a href="http://razzpisampler.oreilly.com/ch10.html#_see_also_202">See Also</a></li></ol></li></ol></nav>
+
+<div class="booklink">
+<p><img src="./razzpisampler_files/cat.gif" alt="Raspberry Pi Cookbook book cover"><br>
+<a href="http://oreilly.com/">Buy the book on oreilly.com.</a></p>
+</div>
+
+</div>
+</div>
+</div>
+
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="span5">
+          <p>© 2013, O'Reilly Media, Inc.</p>
+          <p class="small">All trademarks and registered trademarks appearing on oreilly.com are the property of their respective owners.</p>
+        </div>
+        <div class="span3 offset1">
+          <ul>
+            <li>Legal</li>
+            <li><a href="http://razzpisampler.oreilly.com/docs/terms-of-service">Terms of Service</a></li>
+            <li><a href="http://oreilly.com/oreilly/privacy.csp">Privacy Policy</a></li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </footer>
+
+
+
+<div id="feedly-mini" title="feedly Mini tookit"></div></body></html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<!-- saved from url=(0076)https://www.raspberrypi.org/documentation/remote-access/web-server/apache.md -->
+<html lang="en-GB"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <title>Setting up an Apache Web Server on a Raspberry Pi - Raspberry Pi Documentation</title>
+    <meta name="description" content="Need to access a Raspberry Pi, but don’t have a monitor spare? This section provides basic instructions for setting up remote access.">
+    <link rel="icon" type="image/png" href="https://www.raspberrypi.org/app/themes/mind-control/images/favicon.png">
+    <link rel="publisher" href="https://plus.google.com/+RaspberryPi">
+    <link rel="preconnect stylesheet" href="./Setting up an Apache Web Server on a Raspberry Pi - Raspberry Pi Documentation_files/css" media="all" type="text/css">
+    <link rel="stylesheet" href="./Setting up an Apache Web Server on a Raspberry Pi - Raspberry Pi Documentation_files/legacy.min.css">
+    <link rel="stylesheet" href="./Setting up an Apache Web Server on a Raspberry Pi - Raspberry Pi Documentation_files/prism.css">
+    <script type="text/javascript" async="" src="./Setting up an Apache Web Server on a Raspberry Pi - Raspberry Pi Documentation_files/ga.js"></script><script src="./Setting up an Apache Web Server on a Raspberry Pi - Raspberry Pi Documentation_files/jquery.min.js"></script>
+    <script src="./Setting up an Apache Web Server on a Raspberry Pi - Raspberry Pi Documentation_files/prism.js"></script>
+
+    <script type="text/javascript">//<![CDATA[
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-46270871-1']);
+        _gaq.push(['_trackPageview']);
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+        //]]></script>
+
+    <link rel="canonical" href="https://www.raspberrypi.org/">
+    <link rel="shortlink" href="https://www.raspberrypi.org/">
+</head>
+
+<body class="documentation" data-gr-c-s-loaded="true">
+    <header class="o-header">
+        <nav class="o-container o-header__container">
+            <a class="o-header__home-link" href="https://www.raspberrypi.org/">
+                <span class="u-visually-hidden">Home</span>
+            </a>
+
+            <div class="o-header__nav">
+                <ul class="c-nav">
+                                            <li class="c-nav__item">
+                            <a class="c-nav__link c-nav__link--products" href="https://www.raspberrypi.org/products/">
+                                Products                            </a>
+                        </li>
+                                            <li class="c-nav__item">
+                            <a class="c-nav__link c-nav__link--blog" href="https://www.raspberrypi.org/blog/">
+                                Blog                            </a>
+                        </li>
+                                            <li class="c-nav__item">
+                            <a class="c-nav__link c-nav__link--downloads" href="https://www.raspberrypi.org/downloads/">
+                                Downloads                            </a>
+                        </li>
+                                            <li class="c-nav__item">
+                            <a class="c-nav__link c-nav__link--community" href="https://www.raspberrypi.org/community/">
+                                Community                            </a>
+                        </li>
+                                            <li class="c-nav__item">
+                            <a class="c-nav__link c-nav__link--help" href="https://www.raspberrypi.org/help/">
+                                Help                            </a>
+                        </li>
+                                            <li class="c-nav__item">
+                            <a class="c-nav__link c-nav__link--forums" href="https://www.raspberrypi.org/forums/">
+                                Forums                            </a>
+                        </li>
+                                            <li class="c-nav__item">
+                            <a class="c-nav__link c-nav__link--education" href="https://www.raspberrypi.org/education/">
+                                Education                            </a>
+                        </li>
+                                            <li class="c-nav__item">
+                            <a class="c-nav__link c-nav__link--projects" href="https://projects.raspberrypi.org/?ref=nav">
+                                Projects                            </a>
+                        </li>
+                                    </ul>
+            </div>
+
+            <div class="o-header__spacer"></div>
+
+            <div class="o-header__search-toggle">
+                <span aria-hidden="true" class="c-search-toggle">
+                    <span class="u-visually-hidden">Open Search Input</span>
+                </span>
+            </div>
+
+            <div class="o-header__toggle">
+                <span aria-hidden="true" class="c-nav-toggle">
+                    <span class="c-nav-toggle__icon">
+                        <span class="c-nav-toggle__icon-inner">
+                            <span class="u-visually-hidden">Open Navigation</span>
+                        </span>
+                    </span>
+                </span>
+            </div>
+        </nav>
+    </header>
+
+    <div class="o-header__search">
+        <form action="https://www.raspberrypi.org/" class="c-search" role="search" method="GET">
+            <div class="o-container c-search__container">
+                <input type="search" class="c-search__input" placeholder="Search Raspberry Pi" name="s">
+                <button class="c-search__submit">Search</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        var header = document.querySelector('.o-header')
+        var navToggle = document.querySelector('.c-nav-toggle')
+
+        navToggle.addEventListener('click', function (event) {
+            event.preventDefault()
+
+            header.classList.toggle('o-header--nav-open')
+
+            document.querySelector('.c-nav-toggle__icon').classList.toggle('c-nav-toggle__icon--open')
+            document.querySelector('.c-nav-toggle__icon-inner').classList.toggle('c-nav-toggle__icon-inner--open')
+        })
+
+        var searchToggle = document.querySelector('.c-search-toggle')
+
+        searchToggle.addEventListener('click', function (event) {
+            event.preventDefault()
+
+            var searchContainer = document.querySelector('.o-header__search')
+            var searchInput = document.querySelector('.c-search__input')
+
+            searchInput.blur()
+            searchToggle.classList.toggle('c-search-toggle--open')
+            searchContainer.classList.toggle('o-header__search--open')
+
+            if (searchContainer.classList.contains('o-header__search--open')) {
+                searchInput.focus()
+            }
+        })
+    </script>
+
+    <div class="container">
+        <div class="main">
+
+<nav class="breadcrumbs">
+    <a href="https://www.raspberrypi.org/documentation">documentation</a> &gt; <a href="https://www.raspberrypi.org/documentation/remote-access">remote-access</a> &gt; <a href="https://www.raspberrypi.org/documentation/remote-access/web-server">web-server</a> &gt; apache</nav>
+
+<article class="entry-content">
+    <h1>Setting up an Apache Web Server on a Raspberry Pi</h1>
+<p>Apache is a popular web server application you can install on the Raspberry Pi to allow it to serve web pages.</p>
+<p>On its own, Apache can serve HTML files over HTTP, and with additional modules can serve dynamic web pages using scripting languages such as PHP.</p>
+<h2>Install Apache</h2>
+<p>First, update the available packages by typing the following command into the Terminal:</p>
+<pre class=" language-bash"><code class=" language-bash"><span class="token function">sudo</span> <span class="token function">apt</span> update</code></pre>
+<p>Then, install the <code>apache2</code> package with this command:</p>
+<pre class=" language-bash"><code class=" language-bash"><span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> apache2 -y</code></pre>
+<h2>Test the web server</h2>
+<p>By default, Apache puts a test HTML file in the web folder. This default web page is served when you browse to <code>http://localhost/</code> on the Pi itself, or <code>http://192.168.1.10</code> (whatever the Pi's IP address is) from another computer on the network. To find the Pi's IP address, type <code>hostname -I</code> at the command line (or read more about finding your <a href="https://www.raspberrypi.org/documentation/remote-access/ip-address.md">IP address</a>).</p>
+<p>Browse to the default web page either on the Pi or from another computer on the network and you should see the following:</p>
+<p><img alt="Apache success message" src="./Setting up an Apache Web Server on a Raspberry Pi - Raspberry Pi Documentation_files/apache-it-works.png"></p>
+<p>This means you have Apache working!</p>
+<h3>Changing the default web page</h3>
+<p>This default web page is just an HTML file on the filesystem. It is located at <code>/var/www/html/index.html</code>.</p>
+<p>Navigate to this directory in a terminal window and have a look at what's inside:</p>
+<pre><code>cd /var/www/html
+ls -al</code></pre>
+<p>This will show you:</p>
+<pre class=" language-bash"><code class=" language-bash">total <span class="token number">12</span>
+drwxr-xr-x  <span class="token number">2</span> root root <span class="token number">4096</span> Jan  <span class="token number">8</span> 01:29 <span class="token builtin class-name">.</span>
+drwxr-xr-x <span class="token number">12</span> root root <span class="token number">4096</span> Jan  <span class="token number">8</span> 01:28 <span class="token punctuation">..</span>
+-rw-r--r--  <span class="token number">1</span> root root  <span class="token number">177</span> Jan  <span class="token number">8</span> 01:29 index.html</code></pre>
+<p>This shows that by default there is one file in <code>/var/www/html/</code> called <code>index.html</code>and it is owned by the <code>root</code> user (as is the enclosing folder). In order to edit the file, you need to change its ownership to your own username. Change the owner of the file (the default <code>pi</code> user is assumed here) using <code>sudo chown pi: index.html</code>.</p>
+<p>You can now try editing this file and then refreshing the browser to see the web page change.</p>
+<h3>Your own website</h3>
+<p>If you know HTML you can put your own HTML files and other assets in this directory and serve them as a website on your local network.</p>
+<h2>Additional - install PHP</h2>
+<p>To allow your Apache server to process PHP files, you'll need to install the latest version of PHP and the PHP module for Apache. Type the following command to install these:</p>
+<pre class=" language-bash"><code class=" language-bash"><span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> php libapache2-mod-php -y</code></pre>
+<p>Now remove the <code>index.html</code> file:</p>
+<pre class=" language-bash"><code class=" language-bash"><span class="token function">sudo</span> <span class="token function">rm</span> index.html</code></pre>
+<p>and create the file <code>index.php</code>:</p>
+<pre class=" language-bash"><code class=" language-bash"><span class="token function">sudo</span> <span class="token function">nano</span> index.php</code></pre>
+<p>Put some PHP content in it:</p>
+<pre class=" language-php"><code class=" language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span> <span class="token keyword">echo</span> <span class="token double-quoted-string string">"hello world"</span><span class="token punctuation">;</span> <span class="token delimiter important">?&gt;</span></span></code></pre>
+<p>Now save and refresh your browser. You should see "hello world". This is not dynamic but still served by PHP. Try something dynamic:</p>
+<pre class=" language-php"><code class=" language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span> <span class="token keyword">echo</span> <span class="token function">date</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'Y-m-d H:i:s'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token delimiter important">?&gt;</span></span></code></pre>
+<p>or show your PHP info:</p>
+<pre class=" language-php"><code class=" language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span> <span class="token function">phpinfo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token delimiter important">?&gt;</span></span></code></pre>
+<h3>Further - WordPress</h3>
+<p>Now you have Apache and PHP installed you can progress to setting up a WordPress site on your Pi. Continue to <a href="https://www.raspberrypi.org/documentation/usage/wordpress/README.md">WordPress usage</a>.</p></article>
+
+                <footer class="licence">
+                    <aside class="octocat">
+                        <a href="https://github.com/raspberrypi/documentation/blob/master/remote-access/web-server/apache.md"><img src="./Setting up an Apache Web Server on a Raspberry Pi - Raspberry Pi Documentation_files/octocat.jpg"></a>
+                    </aside>
+                    <aside class="links">
+                        <a href="https://github.com/raspberrypi/documentation/blob/master/remote-access/web-server/apache.md" class="github">View/Edit this page on GitHub</a><br>
+                        <a href="https://www.raspberrypi.org/creative-commons/">Read our usage and contributions policy</a><br>
+                        <a href="https://www.raspberrypi.org/creative-commons/" class="cc"><img src="./Setting up an Apache Web Server on a Raspberry Pi - Raspberry Pi Documentation_files/88x31.png" alt="Creative Commons Licence"></a>
+                    </aside>
+                </footer>
+
+                <div style="clear: both;"></div>
+
+            </div>
+
+        <div style="clear: both;"></div>
+    </div>
+
+    <footer class="o-footer">
+        <div class="o-footer__slice">
+            <div class="o-container o-footer__container">
+                <div class="o-footer__nav">
+                    <div class="c-footer-nav">
+                        <span class="c-footer-nav__title">About Us</span>
+
+                        <ul class="c-footer-nav__list">
+                            <li class="c-footer-nav__item">
+                                <a class="c-footer-nav__link" href="https://www.raspberrypi.org/about">About us</a>
+                            </li>
+                            <li class="c-footer-nav__item">
+                                <a class="c-footer-nav__link" href="https://www.raspberrypi.org/about/meet-the-team">Our team</a>
+                            </li>
+                            <li class="c-footer-nav__item">
+                                <a class="c-footer-nav__link" href="https://www.raspberrypi.org/about/governance">Governance</a>
+                            </li>
+                            <li class="c-footer-nav__item">
+                                <a class="c-footer-nav__link" href="https://www.raspberrypi.org/safeguarding">Safeguarding</a>
+                            </li>
+                            <li class="c-footer-nav__item">
+                                <a class="c-footer-nav__link" href="https://www.raspberrypi.org/about/supporters">Our supporters</a>
+                            </li>
+                            <li class="c-footer-nav__item">
+                                <a class="c-footer-nav__link" href="https://raspberrypi.workable.com/">Jobs</a>
+                            </li>
+                            <li class="c-footer-nav__item">
+                                <a class="c-footer-nav__link" href="https://www.raspberrypi.org/contact">Contact us</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="o-footer__nav">
+                    <div class="c-footer-nav">
+                        <span class="c-footer-nav__title">Support</span>
+
+                        <ul class="c-footer-nav__list">
+                            <li class="c-footer-nav__item">
+                                <a class="c-footer-nav__link" href="https://www.raspberrypi.org/help">Help</a>
+                            </li>
+                            <li class="c-footer-nav__item">
+                                <a class="c-footer-nav__link" href="https://www.raspberrypi.org/documentation">Documentation</a>
+                            </li>
+                            <li class="c-footer-nav__item">
+                                <a class="c-footer-nav__link" href="https://projects.raspberrypi.org/">Projects</a>
+                            </li>
+                            <li class="c-footer-nav__item">
+                                <a class="c-footer-nav__link" href="https://www.raspberrypi.org/training">Training</a>
+                            </li>
+                            <li class="c-footer-nav__item">
+                                <a class="c-footer-nav__link" href="https://www.raspberrypi.org/downloads">Downloads</a>
+                            </li>
+                            <li class="c-footer-nav__item">
+                                <a class="c-footer-nav__link" href="https://www.raspberrypi.org/research-and-insights">Research</a>
+                            </li>
+                            <li class="c-footer-nav__item">
+                                <a class="c-footer-nav__link" href="https://www.raspberrypi.org/help/faqs">FAQ</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="o-footer__newsletter">
+                    <form action="https://raspberrypi.hosted.phplist.com/lists/?p=subscribe&amp;id=1" class="c-footer-newsletter" method="POST">
+                        <span class="c-footer-newsletter__legend">
+                            Sign up to our newsletter
+                        </span>
+                        <input class="c-footer-newsletter__input" name="email" placeholder="Your email here" required="" type="email">
+                        <input type="hidden" name="htmlemail" value="1">
+                        <input type="hidden" name="list[3]" value="signup">
+                        <input type="hidden" name="listname[3]" value="Raspberry Pi Weekly">
+                        <input class="c-footer-newsletter__input--verification-code" type="text" name="VerificationCodeX" value="" size="20">
+                        <button class="c-footer-newsletter__button" name="subscribe">
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+
+                <div class="o-footer__info">
+                    <ul class="c-footer-social">
+                        <li class="c-footer-social__item">
+                            <a class="c-footer-social__link c-footer-social__link--facebook" href="https://www.facebook.com/raspberrypi">
+                                <span class="u-visually-hidden">Like Raspberry Pi on Facebook</span>
+                            </a>
+                        </li>
+                        <li class="c-footer-social__item">
+                            <a class="c-footer-social__link c-footer-social__link--twitter" href="https://twitter.com/Raspberry_Pi">
+                                <span class="u-visually-hidden">Follow Raspberry Pi on Twitter</span>
+                            </a>
+                        </li>
+                        <li class="c-footer-social__item">
+                            <a class="c-footer-social__link c-footer-social__link--instagram" href="https://www.instagram.com/raspberrypifoundation/">
+                                <span class="u-visually-hidden">Check out what we’re having for lunch on Instagram</span>
+                            </a>
+                        </li>
+                        <li class="c-footer-social__item">
+                            <a class="c-footer-social__link c-footer-social__link--youtube" href="https://youtube.com/raspberrypi">
+                                <span class="u-visually-hidden">Subscribe to the Raspberry Pi YouTube channel</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <p class="c-footer-charity">
+                        Raspberry Pi Foundation<br>
+                        UK Registered Charity 1129409
+                    </p>
+
+                    <p class="c-footer-additional">
+                        <a class="c-footer-additional__link" href="https://www.raspberrypi.org/privacy">Privacy</a>
+                        <a class="c-footer-additional__link" href="https://www.raspberrypi.org/cookies">Cookies</a>
+                        <a class="c-footer-additional__link" href="https://www.raspberrypi.org/trademark-rules">Trademark rules and brand guidelines</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+</body></html>

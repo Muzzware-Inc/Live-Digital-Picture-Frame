@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<!-- saved from url=(0063)https://www.raspberrypi.org/documentation/installation/noobs.md -->
+<html lang="en-GB"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <title>NOOBS - Raspberry Pi Documentation</title>
+    <meta name="description" content="This section includes some simple guides to setting up the software on your Raspberry Pi. We recommend that beginners start by downloading and installing NOOBS.">
+    <link rel="icon" type="image/png" href="https://www.raspberrypi.org/app/themes/mind-control/images/favicon.png">
+    <link rel="publisher" href="https://plus.google.com/+RaspberryPi">
+    <link rel="preconnect stylesheet" href="./NOOBS - Raspberry Pi Documentation_files/css" media="all" type="text/css">
+    <link rel="stylesheet" href="./NOOBS - Raspberry Pi Documentation_files/legacy.min.css">
+    <link rel="stylesheet" href="./NOOBS - Raspberry Pi Documentation_files/prism.css">
+    <script type="text/javascript" async="" src="./NOOBS - Raspberry Pi Documentation_files/ga.js"></script><script src="./NOOBS - Raspberry Pi Documentation_files/jquery.min.js"></script>
+    <script src="./NOOBS - Raspberry Pi Documentation_files/prism.js"></script>
+
+    <script type="text/javascript">//<![CDATA[
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-46270871-1']);
+        _gaq.push(['_trackPageview']);
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+        //]]></script>
+
+    <link rel="canonical" href="https://www.raspberrypi.org/">
+    <link rel="shortlink" href="https://www.raspberrypi.org/">
+</head>
+
+<body class="documentation" data-gr-c-s-loaded="true">
+    <header class="o-header">
+        <nav class="o-container o-header__container">
+            <a class="o-header__home-link" href="https://www.raspberrypi.org/">
+                <span class="u-visually-hidden">Home</span>
+            </a>
+
+            <div class="o-header__nav">
+                <ul class="c-nav">
+                                            <li class="c-nav__item">
+                            <a class="c-nav__link c-nav__link--products" href="https://www.raspberrypi.org/products/">
+                                Products                            </a>
+                        </li>
+                                            <li class="c-nav__item">
+                            <a class="c-nav__link c-nav__link--blog" href="https://www.raspberrypi.org/blog/">
+                                Blog                            </a>
+                        </li>
+                                            <li class="c-nav__item">
+                            <a class="c-nav__link c-nav__link--downloads" href="https://www.raspberrypi.org/downloads/">
+                                Downloads                            </a>
+                        </li>
+                                            <li class="c-nav__item">
+                            <a class="c-nav__link c-nav__link--community" href="https://www.raspberrypi.org/community/">
+                                Community                            </a>
+                        </li>
+                                            <li class="c-nav__item">
+                            <a class="c-nav__link c-nav__link--help" href="https://www.raspberrypi.org/help/">
+                                Help                            </a>
+                        </li>
+                                            <li class="c-nav__item">
+                            <a class="c-nav__link c-nav__link--forums" href="https://www.raspberrypi.org/forums/">
+                                Forums                            </a>
+                        </li>
+                                            <li class="c-nav__item">
+                            <a class="c-nav__link c-nav__link--education" href="https://www.raspberrypi.org/education/">
+                                Education                            </a>
+                        </li>
+                                            <li class="c-nav__item">
+                            <a class="c-nav__link c-nav__link--projects" href="https://projects.raspberrypi.org/?ref=nav">
+                                Projects                            </a>
+                        </li>
+                                    </ul>
+            </div>
+
+            <div class="o-header__spacer"></div>
+
+            <div class="o-header__search-toggle">
+                <span aria-hidden="true" class="c-search-toggle">
+                    <span class="u-visually-hidden">Open Search Input</span>
+                </span>
+            </div>
+
+            <div class="o-header__toggle">
+                <span aria-hidden="true" class="c-nav-toggle">
+                    <span class="c-nav-toggle__icon">
+                        <span class="c-nav-toggle__icon-inner">
+                            <span class="u-visually-hidden">Open Navigation</span>
+                        </span>
+                    </span>
+                </span>
+            </div>
+        </nav>
+    </header>
+
+    <div class="o-header__search">
+        <form action="https://www.raspberrypi.org/" class="c-search" role="search" method="GET">
+            <div class="o-container c-search__container">
+                <input type="search" class="c-search__input" placeholder="Search Raspberry Pi" name="s">
+                <button class="c-search__submit">Search</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        var header = document.querySelector('.o-header')
+        var navToggle = document.querySelector('.c-nav-toggle')
+
+        navToggle.addEventListener('click', function (event) {
+            event.preventDefault()
+
+            header.classList.toggle('o-header--nav-open')
+
+            document.querySelector('.c-nav-toggle__icon').classList.toggle('c-nav-toggle__icon--open')
+            document.querySelector('.c-nav-toggle__icon-inner').classList.toggle('c-nav-toggle__icon-inner--open')
+        })
+
+        var searchToggle = document.querySelector('.c-search-toggle')
+
+        searchToggle.addEventListener('click', function (event) {
+            event.preventDefault()
+
+            var searchContainer = document.querySelector('.o-header__search')
+            var searchInput = document.querySelector('.c-search__input')
+
+            searchInput.blur()
+            searchToggle.classList.toggle('c-search-toggle--open')
+            searchContainer.classList.toggle('o-header__search--open')
+
+            if (searchContainer.classList.contains('o-header__search--open')) {
+                searchInput.focus()
+            }
+        })
+    </script>
+
+    <div class="container">
+        <div class="main">
+
+<nav class="breadcrumbs">
+    <a href="https://www.raspberrypi.org/documentation">documentation</a> &gt; <a href="https://www.raspberrypi.org/documentation/installation">installation</a> &gt; noobs</nav>
+
+<article class="entry-content">
+    <h1>NOOBS</h1>
+<p><strong>New Out Of Box Software (NOOBS)</strong> is an easy operating system installation manager for the Raspberry Pi.</p>
+<p><img alt="NOOBS OS selection" src="./NOOBS - Raspberry Pi Documentation_files/noobs.png"></p>
+<h2>How to get NOOBS</h2>
+<h3>Buy a pre-installed SD card</h3>
+<p>SD cards with NOOBS preinstalled are available from many of our distributors and independent retailers, including <a href="https://shop.pimoroni.com/products/noobs-8gb-sd-card">Pimoroni</a>, <a href="https://www.adafruit.com/products/1583">Adafruit</a>, and <a href="http://thepihut.com/collections/raspberry-pi-sd-cards-and-adapters/products/noobs-preinstalled-sd-card">Pi Hut</a>.</p>
+<h3>Download</h3>
+<p>Alternatively, NOOBS is available for download on the Raspberry Pi website: <a href="https://www.raspberrypi.org/downloads/">raspberrypi.org/downloads</a></p>
+<h4>How to install NOOBS on an SD card</h4>
+<p>Once you've downloaded the NOOBS zip file, you'll need to copy the contents to a formatted SD card on your computer.</p>
+<p>To set up a blank SD card with NOOBS:</p>
+<ul>
+<li>Format an SD card as FAT. See the instructions given below.
+<ul>
+<li>Your SD card will need to be at least 16GB for Full Raspbian, or at least 8GB for all other installs. </li>
+</ul></li>
+<li>Download and extract the files from the NOOBS zip file.</li>
+<li>Copy the extracted files onto the SD card that you just formatted, so that this file is at the root directory of the SD card. Please note that in some cases it may extract the files into a folder; if this is the case, then please copy across the files from inside the folder rather than the folder itself.</li>
+<li>On first boot, the "RECOVERY" FAT partition will be automatically resized to a minimum, and a list of OSes that are available to install will be displayed.</li>
+</ul>
+<h4>How to format an SD card as FAT</h4>
+<p><strong>Note:</strong> If you're formatting an SD (or micro SD) card that has a capacity over 32GB (i.e. 64GB and above), then see the separate <a href="https://www.raspberrypi.org/documentation/installation/sdxc_formatting.md">SDXC formatting</a> instructions.</p>
+<h5>Windows</h5>
+<p>If you are a Windows user, we recommend formatting your SD card using the SD Association's Formatting Tool, which can be downloaded from <a href="https://www.sdcard.org/downloads/formatter_4/">sdcard.org</a>. Instructions for using the tool are available on the same site.</p>
+<h5>Mac OS</h5>
+<p>The <a href="https://www.sdcard.org/downloads/formatter_4/">SD Association's Formatting Tool</a> is also available for Mac users, although the default OS X Disk Utility is also capable of formatting the entire disk. To do this, select the SD card volume and choose <code>Erase</code> with <code>MS-DOS</code> format.</p>
+<h5>Linux</h5>
+<p>For Linux users we recommend <code>gparted</code> (or the command line version <code>parted</code>). Norman Dunbar has written up <a href="http://qdosmsq.dunbar-it.co.uk/blog/2013/06/noobs-for-raspberry-pi/">instructions</a> for Linux users.</p>
+<h2>What's included in NOOBS</h2>
+<p>The following operating systems are currently included in NOOBS:</p>
+<ul>
+<li><a href="http://raspbian.org/">Raspbian</a></li>
+<li><a href="https://libreelec.tv/">LibreELEC</a></li>
+<li><a href="https://osmc.tv/">OSMC</a></li>
+<li><a href="https://www.recalbox.com/">Recalbox</a></li>
+<li><a href="http://www.lakka.tv/">Lakka</a></li>
+<li><a href="https://www.riscosopen.org/wiki/documentation/show/Welcome%20to%20RISC%20OS%20Pi">RISC OS</a></li>
+<li><a href="https://www.screenly.io/ose/">Screenly OSE</a></li>
+<li><a href="https://developer.microsoft.com/en-us/windows/iot">Windows 10 IoT Core</a></li>
+<li><a href="https://thinlinx.com/">TLXOS</a></li>
+</ul>
+<p>As of NOOBS v1.3.10 (September 2014), only Raspbian is installed by default in NOOBS. The others can be installed with a network connection.</p>
+<h2>NOOBS and NOOBS Lite</h2>
+<p>NOOBS is available in two forms: offline and network install, or network install only.</p>
+<p>The full version has Raspbian included, so it can be installed from the SD card while offline, whereas using NOOBS Lite or installing any other operating system requires an internet connection.</p>
+<p>Note that the operating system image on the full version can be outdated if a new version of the OS is released, but if connected to the internet you will be shown the option of downloading the latest version if there is a newer one available.</p>
+<h2>NOOBS development</h2>
+<h3>Latest NOOBS release</h3>
+<p>The latest NOOBS release is <strong>v3.3.1</strong>, released on <strong>14th February 2020</strong>.</p>
+<p>(From NOOBS v1.4.0 onwards, NOOBS Lite only shares the first two digits of the version number, i.e. v1.4)</p>
+<h3>NOOBS documentation</h3>
+<p>More comprehensive documentation, including more advanced configuration of NOOBS, is available on <a href="https://github.com/raspberrypi/noobs/blob/master/README.md">GitHub</a>.</p>
+<h3>NOOBS source code</h3>
+<p>See the NOOBS source code on <a href="https://github.com/raspberrypi/noobs">GitHub</a>.</p></article>
+
+                <footer class="licence">
+                    <aside class="octocat">
+                        <a href="https://github.com/raspberrypi/documentation/blob/master/installation/noobs.md"><img src="./NOOBS - Raspberry Pi Documentation_files/octocat.jpg"></a>
+                    </aside>
+                    <aside class="links">
+                        <a href="https://github.com/raspberrypi/documentation/blob/master/installation/noobs.md" class="github">View/Edit this page on GitHub</a><br>
+                        <a href="https://www.raspberrypi.org/creative-commons/">Read our usage and contributions policy</a><br>
+                        <a href="https://www.raspberrypi.org/creative-commons/" class="cc"><img src="./NOOBS - Raspberry Pi Documentation_files/88x31.png" alt="Creative Commons Licence"></a>
+                    </aside>
+                </footer>
+
+                <div style="clear: both;"></div>
+
+            </div>
+
+        <div style="clear: both;"></div>
+    </div>
+
+    <footer class="o-footer">
+        <div class="o-footer__slice">
+            <div class="o-container o-footer__container">
+                <div class="o-footer__nav">
+                    <div class="c-footer-nav">
+                        <span class="c-footer-nav__title">About Us</span>
+
+                        <ul class="c-footer-nav__list">
+                            <li class="c-footer-nav__item">
+                                <a class="c-footer-nav__link" href="https://www.raspberrypi.org/about">About us</a>
+                            </li>
+                            <li class="c-footer-nav__item">
+                                <a class="c-footer-nav__link" href="https://www.raspberrypi.org/about/meet-the-team">Our team</a>
+                            </li>
+                            <li class="c-footer-nav__item">
+                                <a class="c-footer-nav__link" href="https://www.raspberrypi.org/about/governance">Governance</a>
+                            </li>
+                            <li class="c-footer-nav__item">
+                                <a class="c-footer-nav__link" href="https://www.raspberrypi.org/safeguarding">Safeguarding</a>
+                            </li>
+                            <li class="c-footer-nav__item">
+                                <a class="c-footer-nav__link" href="https://www.raspberrypi.org/about/supporters">Our supporters</a>
+                            </li>
+                            <li class="c-footer-nav__item">
+                                <a class="c-footer-nav__link" href="https://raspberrypi.workable.com/">Jobs</a>
+                            </li>
+                            <li class="c-footer-nav__item">
+                                <a class="c-footer-nav__link" href="https://www.raspberrypi.org/contact">Contact us</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="o-footer__nav">
+                    <div class="c-footer-nav">
+                        <span class="c-footer-nav__title">Support</span>
+
+                        <ul class="c-footer-nav__list">
+                            <li class="c-footer-nav__item">
+                                <a class="c-footer-nav__link" href="https://www.raspberrypi.org/help">Help</a>
+                            </li>
+                            <li class="c-footer-nav__item">
+                                <a class="c-footer-nav__link" href="https://www.raspberrypi.org/documentation">Documentation</a>
+                            </li>
+                            <li class="c-footer-nav__item">
+                                <a class="c-footer-nav__link" href="https://projects.raspberrypi.org/">Projects</a>
+                            </li>
+                            <li class="c-footer-nav__item">
+                                <a class="c-footer-nav__link" href="https://www.raspberrypi.org/training">Training</a>
+                            </li>
+                            <li class="c-footer-nav__item">
+                                <a class="c-footer-nav__link" href="https://www.raspberrypi.org/downloads">Downloads</a>
+                            </li>
+                            <li class="c-footer-nav__item">
+                                <a class="c-footer-nav__link" href="https://www.raspberrypi.org/research-and-insights">Research</a>
+                            </li>
+                            <li class="c-footer-nav__item">
+                                <a class="c-footer-nav__link" href="https://www.raspberrypi.org/help/faqs">FAQ</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="o-footer__newsletter">
+                    <form action="https://raspberrypi.hosted.phplist.com/lists/?p=subscribe&amp;id=1" class="c-footer-newsletter" method="POST">
+                        <span class="c-footer-newsletter__legend">
+                            Sign up to our newsletter
+                        </span>
+                        <input class="c-footer-newsletter__input" name="email" placeholder="Your email here" required="" type="email">
+                        <input type="hidden" name="htmlemail" value="1">
+                        <input type="hidden" name="list[3]" value="signup">
+                        <input type="hidden" name="listname[3]" value="Raspberry Pi Weekly">
+                        <input class="c-footer-newsletter__input--verification-code" type="text" name="VerificationCodeX" value="" size="20">
+                        <button class="c-footer-newsletter__button" name="subscribe">
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+
+                <div class="o-footer__info">
+                    <ul class="c-footer-social">
+                        <li class="c-footer-social__item">
+                            <a class="c-footer-social__link c-footer-social__link--facebook" href="https://www.facebook.com/raspberrypi">
+                                <span class="u-visually-hidden">Like Raspberry Pi on Facebook</span>
+                            </a>
+                        </li>
+                        <li class="c-footer-social__item">
+                            <a class="c-footer-social__link c-footer-social__link--twitter" href="https://twitter.com/Raspberry_Pi">
+                                <span class="u-visually-hidden">Follow Raspberry Pi on Twitter</span>
+                            </a>
+                        </li>
+                        <li class="c-footer-social__item">
+                            <a class="c-footer-social__link c-footer-social__link--instagram" href="https://www.instagram.com/raspberrypifoundation/">
+                                <span class="u-visually-hidden">Check out what we’re having for lunch on Instagram</span>
+                            </a>
+                        </li>
+                        <li class="c-footer-social__item">
+                            <a class="c-footer-social__link c-footer-social__link--youtube" href="https://youtube.com/raspberrypi">
+                                <span class="u-visually-hidden">Subscribe to the Raspberry Pi YouTube channel</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <p class="c-footer-charity">
+                        Raspberry Pi Foundation<br>
+                        UK Registered Charity 1129409
+                    </p>
+
+                    <p class="c-footer-additional">
+                        <a class="c-footer-additional__link" href="https://www.raspberrypi.org/privacy">Privacy</a>
+                        <a class="c-footer-additional__link" href="https://www.raspberrypi.org/cookies">Cookies</a>
+                        <a class="c-footer-additional__link" href="https://www.raspberrypi.org/trademark-rules">Trademark rules and brand guidelines</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+</body></html>

@@ -19,4 +19,4 @@ cost** Raspberry Pi Media Panel--a nice looking screen that could stand in the l
 
 -Simple: requiring mainly assembly,versus construction or manufacturing:pushpin:
 
-This project was inspired by https://instructables.com?
+This project was inspired by https://instructables.com
